@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Meraki\Composition\Test;
 
 use Meraki\Composition\Test\Fixture;
-use Meraki\Composition\Config;
+use Meraki\Composition\ContainerConfig;
 use Meraki\Composition\Container;
 use Meraki\Composition\Exception;
 use Psr\Container\ContainerInterface as PsrContainer;
@@ -20,7 +20,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_always_resolves_a_psr_container_interface_to_itself(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 		$psrContainer = $container->get(PsrContainer::class);
 
 		$this->assertSame(
@@ -33,20 +33,20 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_resolves_its_configuration(): void
 	{
-		$config = new Config();
+		$config = new ContainerConfig();
 		$container = new Container($config);
-		$resolvedConfig = $container->get(Config::class);
+		$resolvedConfig = $container->get(ContainerConfig::class);
 		$this->assertSame(
 			$config,
 			$resolvedConfig,
-			'The container should return its configuration when asked for Config'
+			'The container should return its configuration when asked for ContainerConfig'
 		);
 	}
 
 	#[Test]
 	public function it_throws_when_entry_is_not_found(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(Exception\CouldNotResolve::class);
 
@@ -56,7 +56,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_throws_when_implicit_definition_cannot_be_instantiated(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(Exception\CouldNotInstantiate::class);
 
@@ -66,7 +66,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_throws_when_explicit_definition_cannot_be_instantiated(): void
 	{
-		$config = new Config();
+		$config = new ContainerConfig();
 		$config->define(Fixture\SomeInterface::class, Fixture\SomeInterface::class);
 
 		$container = new Container($config);
@@ -79,7 +79,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_uses_default_values_for_parameters(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$instance = $container->get(Fixture\WithDefaultValue::class);
 
@@ -90,7 +90,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_throws_for_untyped_parameter_without_default(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(RuntimeException::class);
 		$this->expectExceptionMessage('Cannot resolve untyped parameter');
@@ -101,7 +101,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_throws_for_builtin_parameter_without_default(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(RuntimeException::class);
 		$this->expectExceptionMessage('Cannot resolve builtin parameter');
@@ -112,7 +112,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_resolves_object_typed_parameters(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$instance = $container->get(Fixture\DependsOnObject::class);
 
@@ -122,7 +122,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_resolves_nullable_object_typed_parameters_to_null_if_definition_not_found(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$instance = $container->get(Fixture\WithNullableDependency::class);
 
@@ -132,7 +132,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_resolves_factory_definitions_with_parameters(): void
 	{
-		$config = new Config();
+		$config = new ContainerConfig();
 		$config->define('factory_service', fn(PsrContainer $c) => $c->get(stdClass::class));
 		$container = new Container($config);
 
@@ -144,7 +144,7 @@ final class ContainerTest extends TestCase
 	#[Test]
 	public function it_does_not_override_prams_with_default_value_even_with_container_definition(): void
 	{
-		$config = new Config();
+		$config = new ContainerConfig();
 		$config->define(Fixture\Dependency::class, fn() => new Fixture\SubDependencyB());
 		$container = new Container($config);
 

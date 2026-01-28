@@ -6,7 +6,7 @@ namespace Meraki\Composition;
 use Meraki\Composition\Definition;
 use Meraki\Composition\DefinitionList;
 
-final class Config
+final class ContainerConfig
 {
 	public private(set) DefinitionList $definitions;
 

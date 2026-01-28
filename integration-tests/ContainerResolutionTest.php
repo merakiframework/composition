@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Meraki\Integration\Test;
 
 use Meraki\Integration\Test\Fixture;
-use Meraki\Composition\Config;
+use Meraki\Composition\ContainerConfig;
 use Meraki\Composition\Container;
 use Meraki\Composition\Exception;
 use Psr\Container\ContainerInterface as PsrContainer;
@@ -20,7 +20,7 @@ final class ContainerResolutionTest extends TestCase
 	#[Test]
 	public function it_throws_when_a_circular_reference_is_found(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(Exception\CircularReferenceFound::class);
 
@@ -50,7 +50,7 @@ final class ContainerResolutionTest extends TestCase
 	#[Test]
 	public function it_resets_the_resolution_path_between_multiple_get_calls(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		// First resolution: circular dependency (expected to fail)
 		try {
@@ -89,7 +89,7 @@ final class ContainerResolutionTest extends TestCase
 	#[Test]
 	public function it_detects_circular_references_across_nested_get_calls(): void
 	{
-		$container = new Container(new Config());
+		$container = new Container(new ContainerConfig());
 
 		$this->expectException(Exception\CircularReferenceFound::class);
 

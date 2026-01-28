@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Meraki\Composition;
 
-use Meraki\Composition\Config;
+use Meraki\Composition\ContainerConfig;
 use Psr\Container\ContainerInterface as PsrContainer;
 use ReflectionClass;
 use ReflectionFunction;
@@ -21,13 +21,13 @@ final class Container implements PsrContainer
 	private ResolutionPath $resolutionPath;
 	private DefinitionList $definitions;
 
-	public function __construct(private Config $config)
+	public function __construct(private ContainerConfig $config)
 	{
 		$this->definitions = $config->definitions;
 		$this->resolutionPath = new ResolutionPath();
 
 		$this->definitions->add(new Definition(PsrContainer::class, $this));
-		$this->definitions->add(new Definition(Config::class, $this->config));
+		$this->definitions->add(new Definition(ContainerConfig::class, $this->config));
 	}
 
 	public function has(string $id): bool
