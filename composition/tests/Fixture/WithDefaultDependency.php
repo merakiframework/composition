@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Meraki\Integration\Test\Fixture;
+namespace Meraki\Composition\Test\Fixture;
 
-use Meraki\Integration\Test\Fixture\Dependency;
-use Meraki\Integration\Test\Fixture\SubDependencyA;
+use Meraki\Composition\Test\Fixture\Dependency;
+use Meraki\Composition\Test\Fixture\SubDependencyA;
 
 final class WithDefaultDependency
 {
