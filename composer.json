@@ -1,15 +1,22 @@
 {
-    "name": "meraki/container",
+    "name": "meraki/composition",
     "require-dev": {
         "phpunit/phpunit": "^12.5"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Meraki\\Container\\": "src/",
-			"Meraki\\Container\\Test\\": "tests/"
+            "Meraki\\Composition\\": "composition/src/",
+			"Meraki\\Wiring\\": "wiring/src/"
         }
     },
+	"autoload-dev": {
+        "psr-4": {
+			"Meraki\\Composition\\Test\\": "composition/tests/",
+			"Meraki\\Wiring\\Test\\": "wiring/tests/",
+			"Meraki\\Integration\\Test\\": "integration-tests/"
+        }
+	},
     "authors": [
         {
             "name": "Nathan",
