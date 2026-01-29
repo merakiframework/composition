@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Meraki\Composition;
+namespace Meraki\Wiring;
 
-use Meraki\Composition\Definition;
-use InvalidArgumentException;
+use Meraki\Composition\ContainerDefinition;
+use Meraki\Composition\Exception;
 
-final class DefinitionList
+final class ContainerDefinitionList
 {
 	private array $definitions = [];
 
@@ -15,7 +15,7 @@ final class DefinitionList
 		array_map($this->add(...), $definitions);
 	}
 
-	public function add(Definition $definition): void
+	public function add(ContainerDefinition $definition): void
 	{
 		if ($this->has($definition->id)) {
 			throw new Exception\DefinitionAlreadyExists($definition);
@@ -35,7 +35,7 @@ final class DefinitionList
 		return false;
 	}
 
-	public function get(string $id): ?Definition
+	public function get(string $id): ?ContainerDefinition
 	{
 		foreach ($this->definitions as $def) {
 			if ($def->hasIdOf($id)) {

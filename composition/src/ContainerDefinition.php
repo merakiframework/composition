@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Meraki\Composition;
 
-final class Definition
+final class ContainerDefinition
 {
 	/** @var callable|string|object|null  callable factory OR class-string alias OR concrete object */
 	public $definition;
@@ -48,7 +48,7 @@ final class Definition
 		return $this;
 	}
 
-	public function equals(Definition $other): bool
+	public function equals(self $other): bool
 	{
 		return $this->id === $other->id;
 	}

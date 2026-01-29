@@ -1,12 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Meraki\Composition;
+namespace Meraki\Wiring;
 
 use Meraki\Composition\Exception\CircularReferenceFound;
 use IteratorAggregate;
 use Countable;
-
 
 final readonly class ResolutionPath implements IteratorAggregate, Countable
 {

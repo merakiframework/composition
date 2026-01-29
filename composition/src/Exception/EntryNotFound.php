@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Meraki\Composition\Exception;
 
 use Meraki\Composition\Exception;
-use Meraki\Composition\Definition;
+use Meraki\Composition\ContainerDefinition;
 use RuntimeException;
 
 final class EntryNotFound extends RuntimeException implements Exception
 {
-	public function __construct(Definition $definition)
+	public function __construct(ContainerDefinition $definition)
 	{
 		$message = 'No entry found for definition: ' . $definition->id;
 
@@ -18,10 +18,10 @@ final class EntryNotFound extends RuntimeException implements Exception
 
 	public static function withoutDefinition(string $id): self
 	{
-		return new self(new Definition($id));
+		return new self(new ContainerDefinition($id));
 	}
 
-	public static function withDefinition(Definition $definition): self
+	public static function withDefinition(ContainerDefinition $definition): self
 	{
 		return new self($definition);
 	}
