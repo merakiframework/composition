@@ -1,5 +1,6 @@
 {
     "name": "meraki/composition",
+	"description": "A deterministic DI container for PHP 8.4+ with predictable autowiring.",
     "require-dev": {
         "phpunit/phpunit": "^12.5"
     },
@@ -24,7 +25,8 @@
         }
     ],
     "require": {
-        "psr/container": "^2.0"
+        "psr/container": "^2.0",
+        "php": "^8.4"
     },
 	"scripts": {
 		"test": "phpunit"
