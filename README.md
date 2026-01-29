@@ -1,10 +1,10 @@
 # Meraki\Composition
 
-A small, explicit, and intention-driven **object composition container** for PHP.
+A **deterministic object composition container** for PHP 8.4+ with predictable autowiring.
 
-*Meraki\Composition* focuses on building fully-constructed object graphs while keeping concerns cleanly separated between the public API and the wiring mechanics.
+*Meraki\Composition* builds fully-constructed object graphs by autowiring dependencies where possible, and failing fast when resolution would be ambiguous. It never guesses: defaults are respected, nullability is honoured, and unclear intent is treated as an error rather than making an assumption.
 
-This library is deliberately minimal, opinionated, and designed to age well.
+The public API focuses on composition and intent, while wiring and resolution mechanics are kept internal. The result is a small, opinionated container designed for clarity, correctness, and long-term maintainability.
 
 ## Why this library exists
 
